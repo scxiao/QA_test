@@ -35,7 +35,7 @@ ENV PATH /opt/miniconda/bin:/code/cmake-3.14.3-Linux-x86_64/bin:${PATH}
 RUN mkdir -p /migraphx
 RUN cd /migraphx && git clone --depth=1 --branch migraphx_for_ort https://github.com/ROCmSoftwarePlatform/AMDMIGraphX src
 RUN cd /migraphx && rbuild package --cxx /opt/rocm-3.7.0/llvm/bin/clang++ -d /migraphx/deps -B /migraphx/build -S /migraphx/src/ -DPYTHON_EXECUTABLE=/usr/bin/python3
-#RUN dpkg -i /migraphx/build/*.deb
+RUN dpkg -i /migraphx/build/*.deb
 #RUN rm -rf /migraphx
 
 
@@ -48,6 +48,6 @@ RUN git clone --single-branch --branch ${ONNXRUNTIME_BRANCH} --recursive ${ONNXR
     /bin/sh ./build.sh --config Release --build_wheel --update --build --parallel --cmake_extra_defines ONNXRUNTIME_VERSION=$(cat ./VERSION_NUMBER) --use_migraphx 
 
 #create the test folder
-#RUN mkdir -p /workspace/test && COPY -r ./scripts /workspace/test/.
+RUN mkdir -p /workspace/test 
 #RUN cd workspace/test/scripts && chmod +x *.sh && ./run_all_models.sh 
 
